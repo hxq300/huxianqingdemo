@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".customview.CustomViewShowActivity"
+    android:orientation="vertical">
+    <com.wisdom.lsy.huxianqingdemo.customview.QQStepView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:outerColor="@color/colorAccent"
+        app:innerColor="@color/colorPrimary"
+        app:stepTextColor="#000"
+        app:stepTextSize="15sp"
+        app:borderWidth="3dp"/>
+</LinearLayout>

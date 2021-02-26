@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -21,6 +23,7 @@ public class QQStepView extends View {
     private int mBorderWidth = 20;
     private int mStepTextSize = 15;
     private int mStepTextColor = Color.BLACK;
+    private Paint mOutPaint;
 
     public QQStepView(Context context) {
         super(context);
@@ -28,10 +31,6 @@ public class QQStepView extends View {
 
     public QQStepView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    public QQStepView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
         // 获取自定义属性
         TypedArray array = context.obtainStyledAttributes(R.styleable.QQStepView);
         mOuterColor = array.getColor(R.styleable.QQStepView_outerColor,mOuterColor);
@@ -39,6 +38,18 @@ public class QQStepView extends View {
         mBorderWidth = array.getColor(R.styleable.QQStepView_borderWidth,mBorderWidth);
         mStepTextSize = array.getDimensionPixelSize(R.styleable.QQStepView_stepTextSize,mStepTextSize);
         mStepTextColor = array.getColor(R.styleable.QQStepView_stepTextColor,mStepTextColor);
+        // 回收
+        array.recycle();
+
+        mOutPaint = new Paint();
+        mOutPaint.setAntiAlias(true);
+        mOutPaint.setStrokeWidth(mBorderWidth);
+        mOutPaint.setColor(mOuterColor);
+        mOutPaint.setStyle(Paint.Style.STROKE); //实心圆
+    }
+
+    public QQStepView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
     @Override
@@ -49,6 +60,11 @@ public class QQStepView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        // 外圈弧
+        int center = getWidth() / 2;
+        int radius = getWidth() / 2 - mBorderWidth/2;
+        RectF rectF = new RectF(center - radius, getWidth(), center + radius, getHeight());
+        canvas.drawArc(rectF,135,270,false,mOutPaint);
 
     }
 
